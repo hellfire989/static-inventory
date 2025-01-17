@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"></link>
+    <!-- Include SheetJS (for reading .xlsx files) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    <!-- Local stylesheets -->
+    <link rel="stylesheet" href="./static/css/styles.css">
+    <link rel="stylesheet" href="./static/css/buttons.css">
+    <meta charset="UTF-8">
+    <title>Inventory</title>
+</head>
+<body class="background">
+<!-- Nav Bar -->
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="inventory.html">Inventory</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Table -->
+<body>
+    <!-- <div style="margin: auto;width: 90%;"> -->
+    <div class="dataTableDiv">
+        <h1 class="inventoryH3">Inventory List</h1>
+        <!-- Table to display the data -->
+        <table id="dataTable" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr></tr> <!-- Table headers will be populated dynamically -->
+            </thead>
+            <tbody>
+                <!-- Data will be populated dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Hardcoded XLSX file path (on the server)
+            var xlsxFilePath = './inventory.xlsx';  // Replace this with your actual file path
+
+            // Fetch the XLSX file using an AJAX request
+            $.ajax({
+                url: xlsxFilePath,
+                xhrFields: {
+                    responseType: 'arraybuffer'  // Important for reading binary data
+                },
+                success: function(data) {
+                    // Use SheetJS to read the binary data
+                    const workbook = XLSX.read(data, { type: 'array' });
+
+                    // Assume first sheet is the one we want to load
+                    const sheetName = workbook.SheetNames[0];
+                    const sheet = workbook.Sheets[sheetName];
+
+                    // Convert the sheet to JSON (using the first row as headers)
+                    const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+                    // Use the first row as column headers
+                    var columns = rows[0];
+                    var tableRows = rows.slice(1);
+
+                    // Populate the table headers dynamically
+                    var headerRow = '';
+                    columns.forEach(function(column) {
+                        headerRow += `<th>${column}</th>`;
+                    });
+                    $('#dataTable thead tr').html(headerRow);
+
+                    // Populate table body with data rows
+                    var tableRowsHtml = '';
+                    tableRows.forEach(function(row) {
+                        tableRowsHtml += '<tr>';
+                        row.forEach(function(cell) {
+                            tableRowsHtml += `<td>${cell}</td>`;
+                        });
+                        tableRowsHtml += '</tr>';
+                    });
+                    $('#dataTable tbody').html(tableRowsHtml);
+
+                    // Initialize DataTable after content is loaded
+                    $('#dataTable').DataTable();
+                },
+                error: function() {
+                    alert('Error loading XLSX file.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
