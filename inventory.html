@@ -8,8 +8,8 @@
     <!-- DataTables -->
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"></link>
-    <!-- Include PapaParse (CSV parser) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <!-- Include SheetJS (for reading .xlsx files) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
     <!-- Local stylesheets -->
     <link rel="stylesheet" href="./static/css/styles.css">
     <link rel="stylesheet" href="./static/css/buttons.css">
@@ -52,45 +52,53 @@
 
     <script>
         $(document).ready(function() {
-            // Hardcoded CSV file path (on the server)
-            var csvFilePath = './data.csv';  // Replace this with your actual file path
+            // Hardcoded XLSX file path (on the server)
+            var xlsxFilePath = './inventory.xlsx';  // Replace this with your actual file path
 
-            // Fetch the CSV file using an AJAX request
+            // Fetch the XLSX file using an AJAX request
             $.ajax({
-                url: csvFilePath,
-                dataType: 'text',
-                success: function(csvData) {
-                    // Parse the CSV data
-                    Papa.parse(csvData, {
-                        complete: function(results) {
-                            var columns = results.data[0]; // Use first row as header
-                            var rows = results.data.slice(1); // Remaining rows as data
+                url: xlsxFilePath,
+                xhrFields: {
+                    responseType: 'arraybuffer'  // Important for reading binary data
+                },
+                success: function(data) {
+                    // Use SheetJS to read the binary data
+                    const workbook = XLSX.read(data, { type: 'array' });
 
-                            // Populate the table headers dynamically
-                            var headerRow = '';
-                            columns.forEach(function(column) {
-                                headerRow += `<th>${column}</th>`;
-                            });
-                            $('#dataTable thead tr').html(headerRow);
+                    // Assume first sheet is the one we want to load
+                    const sheetName = workbook.SheetNames[0];
+                    const sheet = workbook.Sheets[sheetName];
 
-                            // Populate table body with data rows
-                            var tableRows = '';
-                            rows.forEach(function(row) {
-                                tableRows += '<tr>';
-                                row.forEach(function(cell) {
-                                    tableRows += `<td>${cell}</td>`;
-                                });
-                                tableRows += '</tr>';
-                            });
-                            $('#dataTable tbody').html(tableRows);
+                    // Convert the sheet to JSON (using the first row as headers)
+                    const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-                            // Initialize DataTable after content is loaded
-                            $('#dataTable').DataTable();
-                        }
+                    // Use the first row as column headers
+                    var columns = rows[0];
+                    var tableRows = rows.slice(1);
+
+                    // Populate the table headers dynamically
+                    var headerRow = '';
+                    columns.forEach(function(column) {
+                        headerRow += `<th>${column}</th>`;
                     });
+                    $('#dataTable thead tr').html(headerRow);
+
+                    // Populate table body with data rows
+                    var tableRowsHtml = '';
+                    tableRows.forEach(function(row) {
+                        tableRowsHtml += '<tr>';
+                        row.forEach(function(cell) {
+                            tableRowsHtml += `<td>${cell}</td>`;
+                        });
+                        tableRowsHtml += '</tr>';
+                    });
+                    $('#dataTable tbody').html(tableRowsHtml);
+
+                    // Initialize DataTable after content is loaded
+                    $('#dataTable').DataTable();
                 },
                 error: function() {
-                    alert('Error loading CSV file.');
+                    alert('Error loading XLSX file.');
                 }
             });
         });
