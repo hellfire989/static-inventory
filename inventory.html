@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"></link>
+    <!-- Include PapaParse (CSV parser) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <!-- Local stylesheets -->
+    <link rel="stylesheet" href="./static/css/styles.css">
+    <link rel="stylesheet" href="./static/css/buttons.css">
+    <meta charset="UTF-8">
+    <title>Inventory</title>
+</head>
+<body class="background">
+<!-- Nav Bar -->
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="inventory.html">Inventory</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Table -->
+<body>
+    <!-- <div style="margin: auto;width: 90%;"> -->
+    <div class="dataTableDiv">
+        <h1 class="inventoryH3">Inventory List</h1>
+        <!-- Table to display the data -->
+        <table id="dataTable" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr></tr> <!-- Table headers will be populated dynamically -->
+            </thead>
+            <tbody>
+                <!-- Data will be populated dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Hardcoded CSV file path (on the server)
+            var csvFilePath = './data.csv';  // Replace this with your actual file path
+
+            // Fetch the CSV file using an AJAX request
+            $.ajax({
+                url: csvFilePath,
+                dataType: 'text',
+                success: function(csvData) {
+                    // Parse the CSV data
+                    Papa.parse(csvData, {
+                        complete: function(results) {
+                            var columns = results.data[0]; // Use first row as header
+                            var rows = results.data.slice(1); // Remaining rows as data
+
+                            // Populate the table headers dynamically
+                            var headerRow = '';
+                            columns.forEach(function(column) {
+                                headerRow += `<th>${column}</th>`;
+                            });
+                            $('#dataTable thead tr').html(headerRow);
+
+                            // Populate table body with data rows
+                            var tableRows = '';
+                            rows.forEach(function(row) {
+                                tableRows += '<tr>';
+                                row.forEach(function(cell) {
+                                    tableRows += `<td>${cell}</td>`;
+                                });
+                                tableRows += '</tr>';
+                            });
+                            $('#dataTable tbody').html(tableRows);
+
+                            // Initialize DataTable after content is loaded
+                            $('#dataTable').DataTable();
+                        }
+                    });
+                },
+                error: function() {
+                    alert('Error loading CSV file.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

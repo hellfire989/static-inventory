@@ -1,0 +1,199 @@
+/*
+	Global styles start here
+*/
+
+/*
+    Buttons for later?
+    https://codepen.io/peruvianidol/pen/MWboOEQ
+    https://tympanus.net/Development/ButtonHoverStyles/
+*/
+
+body{
+    background-color:#d1d1d1;
+    height:100%;
+}
+
+.abs {
+    position: absolute;
+}
+
+.rel {
+    position: relative;
+}
+
+.background {
+    background-image: url("/static/img/currentBackground.jpg");
+    height: 100%; /* You must set a specified height */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+.tree {
+    border-style: groove;
+    height: auto;
+    max-width: 15%;
+    margin-top: 2%;
+    border-radius: 20%;
+    border-width: 7px;
+    border: 2px solid #000000;
+}
+
+.tree2 {
+    border-style: groove;
+    border-radius: 20%;
+    height: 200px;
+    width: 200px;
+    margin-top: 20%;
+    margin-left: 20%;
+    border: 2px solid #000000;
+}
+
+.center {
+    text-align: center;
+    margin: 0 auto;
+}​
+
+.pCenter {
+    text-align: center;
+}
+
+.h1Center{
+	text-align: center;
+	margin-top: 25px;
+}
+
+.h4Center{
+	text-align: center;
+	margin-top: 25px;
+}
+
+table.table-bordered {
+    border:1px solid #000000;
+}
+
+table.table-bordered > thead > tr > th {
+    border:2px solid #000000;
+}
+
+table.table-bordered > tbody > tr > td {
+    border:2px solid #000000;
+}
+
+/*
+    Nav Bar
+*/
+
+.nav-item {
+    cursor: pointer;
+    border: 0;
+    border-radius: 4px;
+    font-weight: 600;
+    margin: 0 10px;
+    white-space: nowrap;
+    position: relative;
+    transition: .5s;
+}
+
+li:hover {
+    background-color: rgb(44, 44, 44);
+}
+
+/*
+	DataTable Styles start here
+*/
+
+/* Search Box */
+.dataTables_filter {
+    width: 50%;
+    float: right;
+    text-align: right;
+    font-weight: 500;
+ }
+ /* Entries Box */
+.dataTables_length {
+    float: left;
+    text-align: left;
+    font-weight: 500;
+}
+/* Showing Entries Box */
+.dataTables_info {
+    float: left;
+    text-align: left;
+    font-weight: 500;
+    border-bottom: 1px solid #000000 !important;
+    white-space: nowrap;
+    position: relative;
+    padding: 3px;
+}
+/* Bottom row of items */
+.dataTables_paginate {
+    float: right;
+    text-align: right;
+}
+.paging_simple_numbers {
+    float: right;
+    text-align: right;
+}
+/* Top and bottom rows */
+.row {
+    padding: 5px;
+}
+/* Middle page button */
+.page-item.active .page-link {
+    color: #fff !important;
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+}
+/* Previous and Next buttons */
+.page-link {
+    color: #000000 !important;
+    background-color: #fff !important;
+    border: 1px solid #000000 !important;
+    font-weight: 500;
+}
+
+.page-link:hover {
+    color: #fff !important;
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+}
+
+/*
+	Inventory & User Management styles start here
+*/
+
+.dataTableDiv {
+    width:95%;
+    margin: auto;
+}
+
+.inventoryH3 {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.whiteBackground {
+    background-color:#FFF;
+}
+
+/*
+    About page
+*/
+
+.imageText {
+    font-size: 16px;
+    margin-top: 3%;
+    margin-left: 2%;
+    float: left;
+}
+
+.blackText {
+    color:#000000;
+
+}
+
+.blackText:hover {
+    color:#FFFFFF;
+}
