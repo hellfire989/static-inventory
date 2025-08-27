@@ -85,7 +85,7 @@
                             $('#dataTable tbody').html(tableRows);
 
                             // Initialize DataTable after content is loaded
-                            $('#dataTable').DataTable();
+                            $('#dataTable').DataTable({"pageLength": 25});
                         }
                     });
                 },
