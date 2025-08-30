@@ -163,6 +163,20 @@ li:hover {
 /*
 	Inventory & User Management styles start here
 */
+/* Original table header */
+#dataTable thead th {
+    font-size: 20px !important;
+}
+
+/* Cloned headers for scrolling */
+div.dataTables_scrollHead table.dataTable thead th {
+    font-size: 20px !important;
+}
+
+/* FixedHeader floating clone */
+div.dtfh-floatingparent th {
+    font-size: 20px !important;
+}
 
 .dataTableDiv {
     width:95%;
