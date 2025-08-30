@@ -106,17 +106,17 @@ li:hover {
 
 /* Original table header */
 #dataTable thead th {
-    font-size: 24px !important;
+    font-size: 20px !important;
 }
 
 /* Cloned headers for scrolling */
 div.dataTables_scrollHead table.dataTable thead th {
-    font-size: 24px !important;
+    font-size: 20px !important;
 }
 
 /* FixedHeader floating clone */
 div.dtfh-floatingparent th {
-    font-size: 24px !important;
+    font-size: 20px !important;
 }
 .dataTables_filter {
     width: 50%;
@@ -181,7 +181,7 @@ div.dtfh-floatingparent th {
 .dataTableDiv {
     width:95%;
     margin: auto;
-    font-size: 24px;           /* base font size for table */
+    font-size: 20px;           /* base font size for table */
     border: 1px solid #000;  /* optional: give the table a border */
 }
 
