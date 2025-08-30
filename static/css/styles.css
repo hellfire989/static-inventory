@@ -104,7 +104,6 @@ li:hover {
 	DataTable Styles start here
 */
 
-/* Search Box */
 .dataTables_filter {
     width: 50%;
     float: right;
@@ -168,6 +167,7 @@ li:hover {
 .dataTableDiv {
     width:95%;
     margin: auto;
+    font-size: 20px;         /* base font size for table */
 }
 
 .inventoryH3 {
