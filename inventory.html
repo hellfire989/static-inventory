@@ -85,7 +85,16 @@
                             $('#dataTable tbody').html(tableRows);
 
                             // Initialize DataTable after content is loaded
-                            $('#dataTable').DataTable({"pageLength": 25});
+                            $('#dataTable').DataTable(
+                                {
+                                    "pageLength": 25,
+                                    scrollY: '400px',     // vertical scroll height
+                                    scrollX: true,        // enables horizontal scroll
+                                    scrollCollapse: true, // collapse empty space
+                                    paging: false,        // optional: disables pagination
+                                    fixedHeader: true     // optional: keeps header visible
+                                }
+                            );
                         }
                     });
                 },
