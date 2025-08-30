@@ -104,20 +104,7 @@ li:hover {
 	DataTable Styles start here
 */
 
-/* Original table header */
-#dataTable thead th {
-    font-size: 20px !important;
-}
-
-/* Cloned headers for scrolling */
-div.dataTables_scrollHead table.dataTable thead th {
-    font-size: 20px !important;
-}
-
-/* FixedHeader floating clone */
-div.dtfh-floatingparent th {
-    font-size: 20px !important;
-}
+/* Search Box */
 .dataTables_filter {
     width: 50%;
     float: right;
@@ -181,8 +168,6 @@ div.dtfh-floatingparent th {
 .dataTableDiv {
     width:95%;
     margin: auto;
-    font-size: 20px;           /* base font size for table */
-    border: 1px solid #000;  /* optional: give the table a border */
 }
 
 .inventoryH3 {
