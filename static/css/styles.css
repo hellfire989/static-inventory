@@ -104,6 +104,20 @@ li:hover {
 	DataTable Styles start here
 */
 
+/* Original table header */
+#dataTable thead th {
+    font-size: 24px !important;
+}
+
+/* Cloned headers for scrolling */
+div.dataTables_scrollHead table.dataTable thead th {
+    font-size: 24px !important;
+}
+
+/* FixedHeader floating clone */
+div.dtfh-floatingparent th {
+    font-size: 24px !important;
+}
 .dataTables_filter {
     width: 50%;
     float: right;
